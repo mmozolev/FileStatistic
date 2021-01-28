@@ -43,6 +43,14 @@ public class FileStatistic {
             e.printStackTrace();
         }
 
+        //закрываем поток
+        try {
+        fileReader.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //преобразовываем и сортируем
         text = stringBuilder.toString().toLowerCase();
         text = text.replaceAll("[^a-zа-яё0-9]+ ", " ");
