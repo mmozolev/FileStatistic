@@ -1,14 +1,16 @@
+package fileStatistic;
+
 import java.io.*;
 import java.util.*;
 
 
 public class FileStatistic {
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         printMaxFreqWord();
-    }
+    }*/
 
-    public static void printMaxFreqWord() {
+    public void printMaxFreqWord() {
 
         HashMap<String, Integer> map = new LinkedHashMap<>();
         int maxFreq = 0;
@@ -21,14 +23,22 @@ public class FileStatistic {
         //открываем файл
         while (true) {
             try {
+                System.out.print("Enter path to file: ");
                 fileReader = new BufferedReader(new FileReader(bufferedReader.readLine()));
-                bufferedReader.close();
                 break;
             } catch (FileNotFoundException e1) {
                 System.out.println("File not found! Try again");
             }
             catch (IOException e) {
                 e.printStackTrace();
+            }
+            finally { //закрываем поток
+                try {
+                    bufferedReader.close();
+                }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
 
