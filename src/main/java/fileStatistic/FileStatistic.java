@@ -14,7 +14,6 @@ public class FileStatistic {
 
         HashMap<String, Integer> map = new LinkedHashMap<>();
         int maxFreq = 0;
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
         BufferedReader fileReader;
         String buffer;
         StringBuilder stringBuilder = new StringBuilder();
@@ -22,7 +21,7 @@ public class FileStatistic {
 
         //открываем файл
         while (true) {
-            try {
+            try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in))) {
                 System.out.print("Enter path to file: ");
                 fileReader = new BufferedReader(new FileReader(bufferedReader.readLine()));
                 break;
@@ -31,14 +30,6 @@ public class FileStatistic {
             }
             catch (IOException e) {
                 e.printStackTrace();
-            }
-            finally { //закрываем поток
-                try {
-                    bufferedReader.close();
-                }
-                catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
         }
 
@@ -52,14 +43,16 @@ public class FileStatistic {
         catch (IOException e) {
             e.printStackTrace();
         }
+        finally { //закрываем поток
+            try {
+                fileReader.close();
+            }
+            catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
 
-        //закрываем поток
-        try {
-        fileReader.close();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
+
 
         //преобразовываем и сортируем
         text = stringBuilder.toString().toLowerCase();
